@@ -1,0 +1,17 @@
+{
+  "minimum-stability": "dev",
+  "require": {
+    "behat/mink-goutte-driver": "*",
+    "zodyac/behat-perceptual-diff-extension": "*",
+    "zodyac/behat-extensible-html-formatter": "*"
+  },
+  "config": {
+    "bin-dir": "bin/"
+  },
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/ksenzee/BehatPerceptualDiffExtension"
+    }
+  ]
+}

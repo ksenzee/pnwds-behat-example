@@ -1,0 +1,107 @@
+# This is the default profile, which you get when you run
+# bin/behat
+# with no parameters.
+default:
+  paths:
+    features: 'features'
+
+# This will run all your tests *not* tagged as @screenshot, against a local
+# instance of Selenium. Make sure you have Selenium running in another terminal
+# window first:
+# java -jar selenium-server-standalone-2.43.1.jar
+# Then run
+# bin/behat --profile=functional
+functional:
+  filters:
+    tags: "~@screenshot"
+  extensions:
+    Behat\MinkExtension\Extension:
+      # Make sure to update this to the actual URL you want to test against.
+      base_url: 'http://localhost'
+      goutte: ~
+      selenium2: ~
+
+# This will run all your tests tagged as @screenshot, against a local instance
+# of Selenium. Make sure you have Selenium running in another terminal first:
+# java -jar selenium-server-standalone-2.43.1.jar
+# Then run
+# bin/behat --profile=screenshots
+screenshots:
+  filters:
+    tags: "@screenshot"
+  extensions:
+    Behat\MinkExtension\Extension:
+      # Make sure to update this to the actual URL you want to test against.
+      base_url: 'http://localhost'
+      goutte: ~
+      selenium2: ~
+    Zodyac\Behat\PerceptualDiffExtension\Extension:
+      # Number of seconds to sleep before taking a screenshot.
+      sleep: 1
+      # The path (relative to your behat installation) where screenshots will
+      # be saved.
+      path: 'pdiffs'
+      # Whether or not to consider a perceptual diff as a test failure.
+      fail_on_diff: true
+      # Parameters to pass to the ImageMagick compare utility.
+      compare:
+        highlight_color: red
+        metric: AE
+        fuzz: 20
+  # How the test results should be output. These parameters call for "pretty"
+  # console output, as well as an HTML report.
+  formatter:
+    name: pretty,html
+    parameters:
+      output_path: null,perceptual_diffs.html
+
+# This profile will run your non-screenshot tests against a Browserstack VM.
+# Fill in your own username and password here, or follow the instructions at
+# http://behat.readthedocs.org/en/v2.5/guides/7.config.html#environment-variable
+# to read your credentials from an environment variable instead.
+# If you are running tests against localhost, make sure you have local testing
+# set up: https://www.browserstack.com/local-testing
+# Then run
+# bin/behat --profile=browserstack-functional
+browserstack-functional:
+  filters:
+    tags: "~@screenshot"
+  context:
+    parameters:
+      # Make sure to update this to the actual URL you want to test against.
+      base_url: 'http://localhost'
+      # username: ''
+      # password: ''
+      # See http://www.browserstack.com/automate/capabilities for the correct
+      # parameters to fill in here.
+      capabilities: {'browser': 'firefox','browser_version': '31','os': 'Windows','os_version': '7','resolution': '1024x768','browserstack.local': 'false'}
+
+# This holy grail profile will run your tests tagged as @screenshot against a
+# Browserstack VM. Fill in your Browserstack credentials, make sure you have
+# local testing set up, and then run
+# bin/behat --profile=browserstack-screenshots
+browserstack-screenshots:
+  filters:
+    tags: "@screenshot"
+  context:
+    parameters:
+      # Make sure to update this to the actual URL you want to test against.
+      base_url: 'http://localhost'
+      # username: ''
+      # password: ''
+      capabilities: {'browser': 'chrome','browser_version': '37','os': 'Windows','os_version': '7','resolution': '1280x1024','browserstack.local': 'true'}
+  extensions:
+    Zodyac\Behat\PerceptualDiffExtension\Extension:
+      sleep: 1
+      # Consider keeping screenshots for each browser/OS combination in a
+      # separate folder.
+      path: 'pdiffs/win7/chrome'
+      fail_on_diff: true
+      compare:
+        highlight_color: red
+        metric: AE
+        fuzz: 20
+  formatter:
+    name: pretty,html
+    parameters:
+      output_path: null,perceptual_diffs.html
