@@ -15,16 +15,34 @@ https://github.com/nulpunkt/behat-mink-browserstack.
 
 ## To try it out:
 
+Make sure you have composer installed. If you're new to composer, read the
+intro doc at https://getcomposer.org/doc/00-intro.md and follow the installation
+instructions. (I recommend following the global installation instructions; you'll
+end up using composer for a lot of things, so you might as well have it installed
+on your system.)
+
 ```
 git clone https://github.com/ksenzee/pnwds-behat-example.git
 composer update
 ```
 Edit the included behat.yml file to include your browserstack credentials and
-target URL. Then run
+target URL under the 'browserstack-screenshots' section of the file. Then run
 
 ```
 bin/behat --profile=browserstack-screenshots
 ```
+
+If all goes well, you'll find the test output in this folder saved as
+perceptual_diffs.html.
+
+## Potential gotchas
+
+- If you are running your tests against localhost, make sure you have the
+'browserstack.debug' parameter set to 'true', and you have a tunnel open
+to Browserstack. See http://www.browserstack.com/local-testing for setup
+instructions.
+- If you are running your tests against a publicly accessible URL, change
+the 'browserstack.debug' parameter to 'false'.
 
 ## To use ignore masks:
 
