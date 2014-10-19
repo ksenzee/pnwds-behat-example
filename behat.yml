@@ -89,7 +89,7 @@ browserstack-screenshots:
       base_url: 'http://localhost'
       # username: ''
       # password: ''
-      capabilities: {'browser': 'chrome','browser_version': '37','os': 'Windows','os_version': '7','resolution': '1280x1024','browserstack.local': 'true'}
+      capabilities: {'browser': 'chrome','os': 'Windows','os_version': '7','resolution': '1280x1024','browserstack.local': 'true'}
   extensions:
     Zodyac\Behat\PerceptualDiffExtension\Extension:
       sleep: 1
