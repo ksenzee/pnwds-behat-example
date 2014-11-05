@@ -1,6 +1,7 @@
 {
   "minimum-stability": "dev",
   "require": {
+    "behat/behat": "2.4.*",
     "behat/mink-goutte-driver": "*",
     "zodyac/behat-perceptual-diff-extension": "*",
     "zodyac/behat-extensible-html-formatter": "*"
